@@ -16,8 +16,7 @@ namespace WeatherApp.ViewModel.UserControls
     {
 
         #region Fields
-        private const int CitiesNum = 141000;
-        private const int test = 100000;
+        private const int RoundedCitiesNum = 141000;
         private const string apiBegin = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
         private const string apiEnd = "?unitGroup=metric&include=days&key=STYM2WDSNM3Y34EAYESBU8AQ6&contentType=json";
         public string api;
@@ -29,7 +28,7 @@ namespace WeatherApp.ViewModel.UserControls
 
         public string SelectedCity { get; set; }
         
-        public string[] CitiesNames { get; set; } = new string[test];
+        public string[] CitiesNames { get; set; } = new string[RoundedCitiesNum];
 
         #endregion
 
@@ -47,12 +46,8 @@ namespace WeatherApp.ViewModel.UserControls
             string path = File.ReadAllText("C:\\Users\\pc\\source\\repos\\WeatherApp\\cities.json");
             Cities = JsonConvert.DeserializeObject<Class1[]>(path);
 
-            for (int i = 0; i < test; i++)
-            {
+            for (int i = 0; i < Cities.Length; i++)
                 CitiesNames[i] = Cities[i].name;
-            }
-
-            
         }
         #endregion
 

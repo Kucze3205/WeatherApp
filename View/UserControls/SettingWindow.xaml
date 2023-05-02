@@ -25,7 +25,9 @@
 
         <TextBlock Text="City:"/>
         <!--<TextBox Grid.Row="2" MinWidth="100" Text="{Binding CityName, Mode=OneWayToSource}"/>-->
-        <controls:AutoCompleteBox ItemsSource="{Binding CitiesNames}" Text="{Binding SelectedCity, Mode=OneWayToSource}"/>
+        <controls:AutoCompleteBox ItemsSource="{Binding CitiesNames}"
+                                  Text="{Binding SelectedCity, Mode=OneWayToSource}"
+                                  MinimumPrefixLength="3"/>
         <!--<ComboBox ItemsSource="{Binding CitiesNames}" SelectedItem="{Binding SelectedCity, Mode=OneWayToSource}"/>-->
         
         <Button Grid.Column="2" Grid.Row="2" MinHeight="25" Command="{Binding Accept}"/>
