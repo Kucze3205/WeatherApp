@@ -9,8 +9,8 @@
              mc:Ignorable="d"
              Margin="50"
              MaxWidth="400"
-             MaxHeight="150"
-             MinHeight="100"
+             MaxHeight="75"
+             MinHeight="10"
              MinWidth="100">
 
     <UserControl.DataContext>
@@ -29,16 +29,21 @@
         </Grid.RowDefinitions>
 
         <TextBlock VerticalAlignment="Bottom"
-                   Text="City Search:"/>
+                   Text="City Search:"
+                   FontSize="25" FontWeight="Light"/>
         
         <controls:AutoCompleteBox Grid.Row="1"
                                   ItemsSource="{Binding CitiesNames}"
                                   Text="{Binding SelectedCity, Mode=OneWayToSource}"
-                                  MinimumPrefixLength="3"/>
-        
+                                  MinimumPrefixLength="3"
+                                  FontSize="25" FontWeight="Light"/>
+
         <Button Grid.Column="1" Grid.Row="1"
                 MinHeight="25" 
-                Command="{Binding Accept}"/>
+                Command="{Binding Accept}"
+                FontSize="25" FontWeight="Light">
+            Search
+        </Button>
 
     </Grid>
 </UserControl>
