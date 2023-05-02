@@ -29,7 +29,7 @@
             <ImageBrush ImageSource="/Graphics/8562848_25501.jpg"/>
         </Grid.Background>
 
-        <ContentPresenter Content="{Binding UserControl}"/>
+        <ContentPresenter Content="{Binding UserControl}" />
 
 
         <Button Height="50" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Command="{Binding SetSettingView}">
