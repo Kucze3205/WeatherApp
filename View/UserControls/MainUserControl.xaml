@@ -54,19 +54,22 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid Width="115">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
+                        <Button BorderBrush="Transparent" Background="Transparent">
+                            <Grid Width="115">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
 
-                            <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="{Binding Datetime}"/>
-                            <Image Grid.Row="1" Source="{Binding Icon, Converter={StaticResource ImagePathConverter}}" />
-                            <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="{Binding Temp, StringFormat={}0°C}" FontSize="20"/>
-                            <TextBlock Grid.Row="3" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="10" Text="{Binding Description}" Margin="0,0,0,15" FontStyle="Oblique" FontWeight="Regular"/>
-                        </Grid>
+                                <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="{Binding Datetime}"/>
+                                <Image Grid.Row="1" Source="{Binding Icon, Converter={StaticResource ImagePathConverter}}" />
+                                <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="{Binding Temp, StringFormat={}0°C}" FontSize="20"/>
+                                <TextBlock Grid.Row="3" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="10" Text="{Binding Description}" Margin="0,0,0,15" FontStyle="Oblique" FontWeight="Regular"/>
+                            </Grid>
+                        </Button>
+
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
