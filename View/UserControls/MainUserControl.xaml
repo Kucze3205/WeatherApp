@@ -5,9 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:vm="clr-namespace:WeatherApp.ViewModel.UserControls"
+             xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:WeatherApp.View.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="470" d:DesignWidth="800">
 
     <UserControl.DataContext>
         <vm:MainUserControlViewModel/>
@@ -19,60 +21,90 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="65"/>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="35"/>
-            <RowDefinition />
-            <RowDefinition Height="230"/>
-        </Grid.RowDefinitions>
+    <ScrollViewer>
+        <Grid x:Name="MainGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition MaxHeight="100"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid x:Name="DetailDataGrid" Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="65"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.75*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{Binding Weather.Address}" HorizontalAlignment="Center" FontSize="25" FontWeight="ExtraLight" Grid.ColumnSpan="2"/>
+                <Image Grid.Row="1" Source="{Binding First.Icon, Converter={StaticResource ImagePathConverter}}" Height="70" HorizontalAlignment="Right"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding First.Temp, StringFormat= {}0°C}" FontSize="50" FontWeight="ExtraLight" />
+                <TextBlock Grid.Row="2" Text="{Binding First.Description}" HorizontalAlignment="Center" FontSize="25" FontWeight="ExtraLight" Grid.ColumnSpan="2" />
+                <TextBlock Grid.Row="3" Text="{Binding First.Feelslike, StringFormat= Feels like: {0}°C}" HorizontalAlignment="Right" FontSize="25" FontWeight="ExtraLight" Margin="10,0"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding First.Windspeed, StringFormat= Wind: {0}km/h}" HorizontalAlignment="Left" FontSize="25" FontWeight="ExtraLight" Margin="10,0"/>
+                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding First.Visibility, StringFormat= Visibility: {0}km}" HorizontalAlignment="Left" FontSize="25" FontWeight="ExtraLight" Margin="10,0"/>
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="{Binding First.Pressure, StringFormat= Barometer: {0}mbar}" HorizontalAlignment="Right" FontSize="25" FontWeight="ExtraLight" Margin="10,0"/>
+
+                <m:Map Grid.Column="2" Grid.Row="0"
+                       Grid.RowSpan="5"
+                       Margin="10"
+                       ZoomLevel="5"
+                       Center="42.50729,1.53414"
+                       Mode="Road">
+                    <Canvas
+                        m:MapLayer.Position="42.50729,1.53414"
+                        m:MapLayer.PositionOrigin="BottomCenter" Width="30" Height="30">
+
+                        <Image Source="//Graphics\285659_marker_map_icon.png" Width="30" Height="30"/>
+                    </Canvas>
+
+                </m:Map>
+            </Grid>
 
 
-        <TextBlock Text="{Binding Weather.Address}" HorizontalAlignment="Center" FontSize="25" FontWeight="ExtraLight" Grid.ColumnSpan="3"/>
-        <Image Grid.Row="1" Source="{Binding First.Icon, Converter={StaticResource ImagePathConverter}}" Height="70" HorizontalAlignment="Right"/>
-        <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Text="{Binding First.Temp, StringFormat= {}0°C}" FontSize="50" FontWeight="ExtraLight" />
-        <TextBlock Grid.Row="2" Text="{Binding First.Description}" HorizontalAlignment="Center" FontSize="25" FontWeight="ExtraLight" Grid.ColumnSpan="3"/>
-        <TextBlock Grid.Row="3" Text="{Binding First.Feelslike, StringFormat= Feels like: {0}°C}" HorizontalAlignment="Right" FontSize="25" FontWeight="ExtraLight" Margin="10,0"/>
-        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding First.Windspeed, StringFormat= Wind: {0}km/h}" HorizontalAlignment="Left" FontSize="25" FontWeight="ExtraLight" Margin="10,0"/>
-        <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding First.Visibility, StringFormat= Visibility: {0}km}" HorizontalAlignment="Left" FontSize="25" FontWeight="ExtraLight" Margin="10,0"/>
-        <TextBlock Grid.Row="4" Grid.Column="0" Text="{Binding First.Pressure, StringFormat= Barometer: {0}mbar}" HorizontalAlignment="Right" FontSize="25" FontWeight="ExtraLight" Margin="10,0"/>
 
-        <ScrollViewer Grid.Row="6" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" Grid.ColumnSpan="3">
-            <ItemsControl ItemsSource="{Binding Weather.Days}" HorizontalAlignment="Stretch" FontWeight="ExtraLight">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button BorderBrush="Transparent" Background="Transparent">
-                            <Grid Width="115">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
+            <ScrollViewer Grid.Row="6" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" Grid.ColumnSpan="3">
+                <ItemsControl ItemsSource="{Binding Weather.Days}" HorizontalAlignment="Stretch" FontWeight="ExtraLight">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button BorderBrush="Transparent" Background="Transparent">
+                                <Grid Width="115">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
 
-                                <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="{Binding Datetime}"/>
-                                <Image Grid.Row="1" Source="{Binding Icon, Converter={StaticResource ImagePathConverter}}" />
-                                <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="{Binding Temp, StringFormat={}0°C}" FontSize="20"/>
-                                <TextBlock Grid.Row="3" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="10" Text="{Binding Description}" Margin="0,0,0,15" FontStyle="Oblique" FontWeight="Regular"/>
-                            </Grid>
-                        </Button>
+                                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="{Binding Datetime}"/>
+                                    <Image Grid.Row="1" Source="{Binding Icon, Converter={StaticResource ImagePathConverter}}" />
+                                    <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="{Binding Temp, StringFormat={}0°C}" FontSize="20"/>
+                                    <TextBlock Grid.Row="3" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="10" Text="{Binding Description}" Margin="0,0,0,15" FontStyle="Oblique" FontWeight="Regular"/>
+                                </Grid>
+                            </Button>
 
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
-    </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

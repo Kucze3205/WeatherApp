@@ -46,6 +46,7 @@ namespace WeatherApp.ViewModel.UserControls
             Weather.Days.RemoveAt(0);
             RaisePropertyChanged(nameof(Weather));
         }
+
         private void LoadedV(object obj)
         {
 
