@@ -27,7 +27,7 @@ namespace WeatherApp.ViewModel.UserControls
         #region Properties
 
         public string SelectedCity { get; set; }
-        
+        public string CityIndex { get; set; }
         public string[] CitiesNames { get; set; } = new string[RoundedCitiesNum];
 
         #endregion
@@ -55,6 +55,7 @@ namespace WeatherApp.ViewModel.UserControls
         public void Accepting(object obj)
         {
             RaisePropertyChanged(nameof(SelectedCity));
+            RaisePropertyChanged(nameof(CityIndex));
 
             api = apiBegin;
             api += SelectedCity;

@@ -57,20 +57,23 @@
                 <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding First.Windspeed, StringFormat= Wind: {0}km/h}" HorizontalAlignment="Left" FontSize="25" FontWeight="ExtraLight" Margin="10,0"/>
                 <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding First.Visibility, StringFormat= Visibility: {0}km}" HorizontalAlignment="Left" FontSize="25" FontWeight="ExtraLight" Margin="10,0"/>
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="{Binding First.Pressure, StringFormat= Barometer: {0}mbar}" HorizontalAlignment="Right" FontSize="25" FontWeight="ExtraLight" Margin="10,0"/>
+                
 
-                <m:Map Grid.Column="2" Grid.Row="0"
+                    <m:Map Grid.Column="2" Grid.Row="0"
                        Grid.RowSpan="5"
                        Margin="10"
-                       ZoomLevel="5"
-                       Center="42.50729,1.53414"
-                       Mode="Road">
+                       ZoomLevel="{Binding ElementName=asdas, Path=Value}"
+                       Center="{Binding Coords}"
+                       Mode="AerialWithLabels"
+                       CredentialsProvider="0dReedYX5RltZc3ZGTBw~CnE2A7n4vbwicaod9PIw7Q~ArCCn3NfVHHAqrTCVYoRMECZeRXfGSnUcbLtd7pKObYzOa_XOzvMga6h7eUMYnCS">
+                    <ScrollBar x:Name="asdas" Grid.RowSpan="5" />
                     <Canvas
-                        m:MapLayer.Position="42.50729,1.53414"
+                        m:MapLayer.Position="{Binding Coords}"
                         m:MapLayer.PositionOrigin="BottomCenter" Width="30" Height="30">
-
+                        
                         <Image Source="//Graphics\285659_marker_map_icon.png" Width="30" Height="30"/>
                     </Canvas>
-
+                    
                 </m:Map>
             </Grid>
 

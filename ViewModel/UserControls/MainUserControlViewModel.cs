@@ -23,6 +23,7 @@ namespace WeatherApp.ViewModel.UserControls
         #region Properties
         public Weather Weather { get; set; } = null;
         public Day First { get; set; }
+        public string Coords { get; set; } = "52.2356,21.0104";
         #endregion
 
         #region Commands
@@ -38,6 +39,12 @@ namespace WeatherApp.ViewModel.UserControls
         #endregion
 
         #region Private methods
+        private string CoordsForMap(string Latitude, string Longitude)
+        {
+            Latitude = Latitude.Replace(',', '.');
+            Longitude = Longitude.Replace(',', '.');
+            return Latitude + "," + Longitude;
+        }
         private void ReloadLastWeather()
         {
             Weather = JsonConvert.DeserializeObject<Weather>(File.ReadAllText(@"lastCityWeather.json"));
@@ -49,7 +56,6 @@ namespace WeatherApp.ViewModel.UserControls
 
         private void LoadedV(object obj)
         {
-
             try
             {
                 WebClient client = new WebClient();
@@ -59,7 +65,11 @@ namespace WeatherApp.ViewModel.UserControls
                 First = Weather.Days[0];
                 RaisePropertyChanged(nameof(First));
                 Weather.Days.RemoveAt(0);
-                RaisePropertyChanged(nameof(Weather));
+                RaisePropertyChanged(nameof(Weather));              
+                Coords = CoordsForMap(Weather.Latitude.ToString(), Weather.Longitude.ToString());
+                RaisePropertyChanged(nameof(Coords));
+
+
             }
             catch (Exception ex)
             {
